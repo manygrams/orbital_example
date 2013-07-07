@@ -77,7 +77,7 @@ module Astrodynamics
     def calculate_acceleration o1, o2
       vector = o2.get_position - o1.get_position
       distance = vector.magnitude
-      (distance > o1.radius) && (distance > o2.radius) ? ((-G * o1.mass * o2.mass) /  (distance ** 2)) * vector.normalize : Vector[ 0, 0, 0 ]
+      (distance > o1.radius + o2.radius) ? ((-G * o1.mass * o2.mass) /  (distance ** 2)) * vector.normalize : Vector[ 0, 0, 0 ]
     end
 
   end
