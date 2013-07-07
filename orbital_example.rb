@@ -55,7 +55,7 @@ R.eval <<EOF
   yl = c(min(x$y)-1, max(x$y)+1)
   zl = c(min(x$z)-1, max(x$z)+1)
 
-  every = 10
+  every = 100
 
   t_list = unique(x$t)
   t_list = t_list[t_list %% every == 0]
