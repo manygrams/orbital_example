@@ -2,6 +2,8 @@ require 'matrix'
 
 module Astrodynamics
   class AstronomicalObject
+    attr_accessor :name, :current_x, :current_y, :current_z, :mass, :radius, :dx, :dy, :dz
+
     G = 6.67384e-11
 
     def initialize name, x, y, z, m, r, dx = 0, dy = 0, dz = 0
@@ -47,26 +49,6 @@ module Astrodynamics
       Vector[ @dx, @dy, @dz ]
     end
 
-    def get_mass
-      @mass
-    end
-
-    def get_radius
-      @radius
-    end
-
-    def get_x
-      @current_x
-    end
-
-    def get_y
-      @current_y
-    end
-
-    def get_z
-      @current_z
-    end
-
     def make_circular o
       vector = o.get_position - self.get_position
       distance = vector.magnitude
@@ -81,7 +63,7 @@ module Astrodynamics
       vector = o2.get_position - o1.get_position
       distance = vector.magnitude
       unit_vector = (1/distance) * vector
-      (distance > o1.get_radius) && (distance > o2.get_radius) ? ((-G * o1.get_mass * o2.get_mass) /  (distance ** 2)) * unit_vector : Vector[0, 0, 0]
+      (distance > o1.radius) && (distance > o2.radius) ? ((-G * o1.mass * o2.mass) /  (distance ** 2)) * unit_vector : Vector[0, 0, 0]
     end
 
   end
