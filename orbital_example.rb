@@ -87,7 +87,8 @@ R.eval <<-EOF
    scatterplot3d(this$x, this$y, this$z, xlab="x", ylab="y", zlab="z", xlim=xl, ylim=yl, zlim=zl)
   }
   ani.stop()
-  ani.options(interval = 0)
 EOF
 
-sleep(3)
+puts ''
+puts 'Press enter to continue.'
+STDIN.gets.chomp
