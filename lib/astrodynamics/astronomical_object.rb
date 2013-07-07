@@ -55,6 +55,18 @@ module Astrodynamics
       @radius
     end
 
+    def get_x
+      @current_x
+    end
+
+    def get_y
+      @current_y
+    end
+
+    def get_z
+      @current_z
+    end
+
     def make_circular o
       vector = o.get_position - self.get_position
       distance = vector.magnitude
