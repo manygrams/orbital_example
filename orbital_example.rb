@@ -31,6 +31,9 @@ end
 
 CSV.open("planets.csv", "wb") do |csv|
   SIM_NUM.times do | i |
+    if i % 500 == 0
+      puts "Time: #{i}"
+    end
     objects.each { | key, object | object.calc_tick(objects.except key) }
     objects.each { | key, object | object.apply_tick }
     objects.each { | key, object | csv << [ i, object.to_s, object.get_position[0], object.get_position[1], object.get_position[2] ] }
