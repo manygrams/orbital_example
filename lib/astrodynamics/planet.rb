@@ -7,5 +7,9 @@ module Astrodynamics
       super name, x, y, z, m, r, dx, dy, dz
     end
 
+    def initialize name
+      super name
+    end
+
   end
 end

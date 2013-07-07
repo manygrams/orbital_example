@@ -20,6 +20,21 @@ module Astrodynamics
       @dz = dz
     end
 
+    def initialize name
+      scale = 110
+      @name = name
+      @current_x = Random.rand(-scale..scale).to_f
+      @current_y = Random.rand(-scale..scale).to_f
+      @current_z = Random.rand(-scale..scale).to_f
+
+      @mass = Random.rand(10..20000).to_f
+      @radius = Random.rand(0..10).to_f/5
+
+      @dx = 0
+      @dy = 0
+      @dz = 0
+    end
+
     def to_s
       @name
     end

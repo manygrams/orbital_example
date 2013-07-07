@@ -9,27 +9,28 @@ class Hash
   end
 end
 
+def time
+  start = Time.now
+  yield
+  Time.now - start
+end
+
 $: << 'lib'
 require 'astrodynamics/planet'
 require 'csv'
 require 'rinruby'
 
-N = ARGV[0] ? ARGV[0].to_i : 10000
+SIM_NUM = ARGV[0] ? ARGV[0].to_i : 10000
+N = ARGV[1] ? ARGV[1].to_i : 15
 
-objects =
-{
-  'sun'    => Astrodynamics::Planet.new('sun',     0,  0,    5,  550, 2),
-  'moon1'  => Astrodynamics::Planet.new('moon1',  10, 10,  -20,  890, 0.25),
-  'moon2'  => Astrodynamics::Planet.new('moon2',   6, 18,    2,  500, 0.25),
-  'moon3'  => Astrodynamics::Planet.new('moon3', -10, 10,    8,  400, 0.05),
-  'moon4'  => Astrodynamics::Planet.new('moon4',   6, -4,   -2,  400, 0.05)
-}
+objects = {}
 
-# objects['moon1'].make_circular objects['sun']
-# objects['moon2'].make_circular objects['moon1']
+N.times do |i|
+  objects[i] = Astrodynamics::AstronomicalObject.new i
+end
 
 CSV.open("planets.csv", "wb") do |csv|
-  N.times do | i |
+  SIM_NUM.times do | i |
     objects.each { | key, object | object.calc_tick(objects.except key) }
     objects.each { | key, object | object.apply_tick }
     objects.each { | key, object | csv << [ i, object.to_s, object.get_position[0], object.get_position[1], object.get_position[2] ] }
@@ -54,7 +55,7 @@ R.eval <<EOF
   yl = c(min(x$y)-1, max(x$y)+1)
   zl = c(min(x$z)-1, max(x$z)+1)
 
-  every = 100
+  every = 10
 
   t_list = unique(x$t)
   t_list = t_list[t_list %% every == 0]
