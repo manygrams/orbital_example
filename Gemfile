@@ -1,3 +1,4 @@
 source 'https://rubygems.org'
 
-gem 'rjb'
+gem 'rinruby'
+gem 'progressbar'
